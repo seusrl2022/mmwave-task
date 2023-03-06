@@ -1,0 +1,75 @@
+roslaunch azure_kinect_ros_driver driver.launch
+roslaunch ti_mm
+k4aviewer
+sudo MESA_GL_VERSION_OVERRIDE=4.6 k4abt_simple_3d_viewer
+rosbag record /points2 /rgb/image_raw /body_tracking_data
+
+rosbag record -O black1.bag --duration=60 /ti_mmwave/radar_scan_pcl_0
+
+
+rosbag record -O test.bag  -b 4096 --duration=30 /points2 /rgb/image_raw /body_tracking_data
+k4abt_simple_3d_viewer
+
+cat /proc/driver/nvidia/version  查看显卡驱动版本
+
+uname -r  查看系统内核版本
+
+nvcc -V 查看cuda版本  cat /usr/local/cuda/version.txt
+
+nvidia-smi 查看nvidia显卡信息
+
+apt-get --purge remove  software_name :卸载软件及其配置
+apt-get autoremove software_name:卸载软件及其依赖的安装包
+
+lspci |grep -i nvidia  nvidia系列的硬件信息
+
+glxinfo | grep OpenGL  opengl信息
+
+ubuntu-drivers devices  看自己的显卡及可以安装的驱动版本
+
+sudo cp nvidia-application-profiles-460.80-key-documentation nvidia-application-profiles-key-documentation
+
+anaconda启动
+source ~/anaconda3/bin/activate
+alias torch='source activate mytorch'
+alias start_anaconda='source ~/anaconda3/bin/activate'
+alias close_anaconda='conda deactivate'
+
+# 创建新的环境
+conda create -n mytorch python==3.8
+# 激活环境
+conda activate mytorch
+# 删除环境
+conda remove -n mytorch --all
+# 退出当前环境
+conda deactivate
+# 查看有那些虚拟环境
+conda env list
+# 查看有某个虚拟环境有那些包
+conda list
+
+catkin config -DPYTHON_EXECUTABLE=/home/iot/anaconda3/envs/mytorch/bin/python3.8 -DPYTHON_INCLUDE_DIR=/home/iot/anaconda3/envs/mytorch/include/python3.8 -DPYTHON_LIBRARY=/home/iot/anaconda3/envs/mytorch/lib/libpython3.8m.so -DCMAKE_BUILD_TYPE=Release -DSETUPTOOLS_DEB_LAYOUT=OFF
+
+echo $ROS_PACKAGE_PATH
+
+roslaunch rosbridge_server rosbridge_websocket.launch
+rosrun tf2_web_republisher tf2_web_republisher
+
+sudo chmod 777 wheeltec_udev.sh 
+sudo ./wheeltec_udev.sh  固定端口号
+catkin_make -DCATKIN_WHITELIST_PACKAGES = fdilink_ahrs  编译指定包
+roslaunch ti_mmwave_rospkg 6843_multi_3d_0.launch
+roslaunch fdilink_ahrs ahrs_data.launch
+roslaunch fdilink_ahrs tf.launch
+
+https://download.pytorch.org/whl/cu113/torchvision-0.11.3%2Bcu113-cp36-cp36m-linux_x86_64.whl
+https://download.pytorch.org/whl/cu113/torch-1.10.1%2Bcu113-cp36-cp36m-linux_x86_64.whl
+pip3 install torch==1.10.1 torchvision==0.11.3 torchaudio==0.10.2
+
+ll /dev/serial/by-id
+pip3 install pyqt5 -i https://pypi.tuna.tsinghua.edu.cn/simple/
+
+<!-- 在rviz中显示-->
+<node name="rviz" pkg="rviz" type="rviz" args="-d $(find mrobot_gazebo)/config/mrobot_with_camera.rviz" required="true" />
+
+
