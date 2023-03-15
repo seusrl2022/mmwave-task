@@ -9,3 +9,4 @@ rosrun calibration_toolkit data_collector <data
 rosrun ros_calibration stereo_calibration --approximate 0.1 --square 0.033 --size 9x6 --file <data
 
 
+https://software.intel.com/content/www/us/en/develop/articles/opencl-drivers.html
