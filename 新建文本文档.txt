@@ -1,0 +1,24 @@
+查看显卡对应的驱动版本：
+https://www.nvidia.com/Download/index.aspx?lang=en-us
+
+查看cuda版本与相应显卡驱动的最低要求
+https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html
+
+下载cuda历史版本
+https://developer.nvidia.com/cuda-toolkit-archive
+
+卸载CUDA
+cd /usr/local/cuda-xx.x/bin/
+sudo ./uninstall_cuda_xx.x.pl
+sudo rm -rf /usr/local/cuda-xx.x
+
+卸载显卡驱动
+sudo apt-get --purge remove nvidia*
+sudo apt autoremove
+
+
+按回车进入命令模式，此时只能查看文件，不能修改（read-only 模式），执行命令 
+
+mount -o remount,rw /
+这样就可以修改文件了，把之前修改出错的文件还原，reboot 重新启动就OK了。
+
